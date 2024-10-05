@@ -4,33 +4,29 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from .config import config
-#from .utils.init_curse import init_courses
 
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 
-
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
 
+    # Inicializar las extensiones
     db.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
 
+    # Configuración de CORS
     CORS(app, resources={r"/*": {"origins": config.CORS_ORIGINS}}, supports_credentials=True)
     
-
+    # Registrar los blueprints (controladores)
+    from app.controllers.main_controller import main_bp  # Importa el blueprint desde el controlador
+    app.register_blueprint(main_bp)  # Registra el blueprint principal
+    
     with app.app_context():
-        #from app.models.user import User, Permission, UserRole, Role, Teacher, CoordinatorTeacherAssignment
-        
-        #from .routes.auth_routes import auth_bp
-        
-        #app.register_blueprint(auth_bp, url_prefix='/auth')
-                
-        db.create_all()
-        #init_roles(app)
-        #init_nivel(app)
+        # Aquí puedes inicializar la base de datos y otros componentes si lo necesitas
+        db.create_all()  # Crear las tablas en la base de datos
 
     return app
