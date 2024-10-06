@@ -1,9 +1,17 @@
-import { MapContainer, TileLayer, Marker, LayersControl, useMapEvents, useMap, Circle } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css'; 
+import { 
+  MapContainer, 
+  TileLayer, 
+  Marker, 
+  LayersControl, 
+  useMapEvents, 
+  useMap, 
+  Circle,
+  Rectangle 
+} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useState, useEffect } from 'react';
 
-// Configuración de íconos para los marcadores de Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -11,11 +19,23 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
-const MapView = ({ currentLocation, setLocation, destinationCoords }) => {
-  const [position, setPosition] = useState(currentLocation); // Posición actual
-  const [destination, setDestination] = useState(destinationCoords); // Posición de destino
+const MapView = ({ setSelectedLocation }) => {
+  const [position, setPosition] = useState(null);
+  const [destination, setDestination] = useState(null);
 
-  // Hook personalizado para centrar el mapa cuando la ubicación cambia
+  // Función para calcular los límites del rectángulo 3x3
+  const calculateBounds = (center) => {
+    if (!center) return null;
+    
+    // Convertir 3 píxeles a grados (aproximadamente)
+    const pixelToDegree = 0.00003; // Este valor puede necesitar ajuste según el nivel de zoom
+    
+    return [
+      [center.lat - pixelToDegree, center.lng - pixelToDegree], // Esquina suroeste
+      [center.lat + pixelToDegree, center.lng + pixelToDegree]  // Esquina noreste
+    ];
+  };
+
   const SetViewOnLocationChange = ({ location }) => {
     const map = useMap();
     useEffect(() => {
@@ -26,45 +46,45 @@ const MapView = ({ currentLocation, setLocation, destinationCoords }) => {
     return null;
   };
 
-  // Función para manejar eventos en el mapa
   const MapEvents = () => {
     useMapEvents({
       click(e) {
-        // Seleccionar la ubicación de destino al hacer clic en el mapa
-        setDestination(e.latlng);
-        setLocation(e.latlng);
+        const newLocation = {
+          lat: e.latlng.lat,
+          lng: e.latlng.lng
+        };
+        setDestination(newLocation);
+        setSelectedLocation(newLocation);
       }
     });
     return null;
   };
 
-  // Obtener la ubicación actual del usuario
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const { latitude, longitude } = position.coords;
-          const userLocation = { lat: latitude, lng: longitude };
-          setPosition(userLocation); // Establece la posición actual
-          setLocation(userLocation);
+          const userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          setPosition(userLocation);
         },
         (error) => {
           console.error("Error getting location: ", error);
         }
       );
     }
-  }, [setLocation]);
-
-  // Actualizar la ubicación del destino cuando se cambian las coordenadas
-  useEffect(() => {
-    if (destinationCoords) {
-      setDestination(destinationCoords);
-    }
-  }, [destinationCoords]);
+  }, []);
 
   return (
     <div className="map-container">
-      <MapContainer center={position || currentLocation} zoom={13} style={{ height: "100%", width: "100%" }} id="map">
+      <MapContainer 
+        center={position || [51.505, -0.09]} 
+        zoom={13} 
+        style={{ height: "100%", width: "100%" }} 
+        id="map"
+      >
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="Mapa de OpenStreetMap">
             <TileLayer
@@ -88,16 +108,22 @@ const MapView = ({ currentLocation, setLocation, destinationCoords }) => {
           </LayersControl.Overlay>
         </LayersControl>
 
-        {/* Marcar la ubicación actual del usuario */}
         {position && (
           <>
-            <Marker position={position} />
-            <Circle center={position} radius={500} fillColor="blue" />
+            <Marker position={[position.lat, position.lng]} />
+            <Circle center={[position.lat, position.lng]} radius={500} fillColor="blue" />
           </>
         )}
 
-        {/* Marcar la ubicación de destino seleccionada */}
-        {destination && <Marker position={destination} />}
+        {destination && (
+          <>
+            <Marker position={[destination.lat, destination.lng]} />
+            <Rectangle 
+              bounds={calculateBounds(destination)}
+              pathOptions={{ color: 'red', weight: 1, fillOpacity: 0.3 }}
+            />
+          </>
+        )}
 
         <MapEvents />
         <SetViewOnLocationChange location={position} />
