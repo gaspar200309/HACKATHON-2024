@@ -6,6 +6,7 @@ import SpectralSignatureChart from "./components/Camb";
 import NavBar from "./components/NavBar";
 import Hero from "./pages/hero/Hero";
 import { Container, Toolbar } from "@mui/material";
+import Cordenadas from './pages/maps/cordenadas'
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <LocationInput />
         </Container>
       </div>
+      {/* <Home/> */}
+      <Cordenadas/>
     </>
   );
 }

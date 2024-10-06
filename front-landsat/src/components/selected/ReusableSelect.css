@@ -1,0 +1,18 @@
+.select-container {
+    margin-bottom: 15px;
+  }
+  
+  .select-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .select-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  

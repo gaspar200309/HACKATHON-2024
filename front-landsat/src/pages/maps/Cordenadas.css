@@ -1,0 +1,17 @@
+/* Cordenadas.css */
+.layout-container {
+    display: flex;
+    justify-content: space-between; /* Espacio entre panel y mapa */
+    align-items: flex-start; /* Alinea el contenido en la parte superior */
+    width: 100%;
+  }
+  
+  .control-panel-container {
+    flex: 0 0 300px; /* Ancho fijo para el panel de control, puedes ajustar esto */
+    margin-right: 20px; /* Espacio entre el panel de control y el mapa */
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  

@@ -1,0 +1,14 @@
+/* MapView.css */
+.map-container {
+    position: relative;
+    height: 400px; /* Ajusta la altura según tus necesidades */
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden; /* Para ocultar los bordes */
+  }
+  
+  #map {
+    height: 100%; /* Para que el mapa ocupe el 100% del contenedor */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
