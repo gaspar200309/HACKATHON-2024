@@ -1,8 +1,8 @@
 // Cordenadas.js
-import React, { useState, useEffect } from 'react';
-import ControlPanel from './ControlPanel';
-import MapView from './Mapa';
-import './Cordenadas.css'; // Asegúrate de crear este archivo para los estilos
+import React, { useState, useEffect } from "react";
+import ControlPanel from "./ControlPanel";
+import MapView from "./Mapa";
+import "./Cordenadas.css"; // Asegúrate de crear este archivo para los estilos
 
 const Cordenadas = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -26,17 +26,26 @@ const Cordenadas = () => {
   }, []);
 
   return (
-    <div className="layout-container">
+    <div
+      className="layout-container"
+      style={{
+        minHeight: "100vh",
+      }}
+    >
       <div className="control-panel-container">
         <h1>Selecciona una ubicación en el mapa</h1>
         {selectedLocation && (
           <p>
-            Coordenadas seleccionadas: Latitud: {selectedLocation.lat}, Longitud: {selectedLocation.lng}
+            Coordenadas seleccionadas: Latitud: {selectedLocation.lat},
+            Longitud: {selectedLocation.lng}
           </p>
         )}
         <ControlPanel setLocation={setSelectedLocation} />
       </div>
-      <MapView currentLocation={currentLocation} setLocation={setSelectedLocation} />
+      <MapView
+        currentLocation={currentLocation}
+        setLocation={setSelectedLocation}
+      />
     </div>
   );
 };
