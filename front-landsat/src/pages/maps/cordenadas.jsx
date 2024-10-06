@@ -1,11 +1,9 @@
-
-
-// Cordenadas.js
 import React, { useState, useEffect } from 'react';
 import ControlPanel from './ControlPanel';
 import MapView from './Mapa'
 import './Cordenadas.css';
 import LandsatGrid from './LandsatGrid';
+import Result from './Result';
 
 const Cordenadas = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -38,16 +36,12 @@ const Cordenadas = () => {
         <ControlPanel setLocation={setSelectedLocation} />
       </div>
       
-      <div className="metadata-container">
-        <h2>Metadatos de la ubicación</h2>
-        {selectedLocation ? (
-          <p>Latitud: {selectedLocation.lat}, Longitud: {selectedLocation.lng}</p>
-        ) : (
-          <p>Selecciona una ubicación en el mapa.</p>
-        )}
-      </div>
-
-      {selectedLocation && <LandsatGrid location={selectedLocation} />}
+      {selectedLocation && (
+        <>
+          <LandsatGrid location={selectedLocation} />
+          <Result selectedLocation={selectedLocation} />
+        </>
+      )}
     </div>
   );
 };
