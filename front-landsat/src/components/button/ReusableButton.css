@@ -1,0 +1,20 @@
+.reusable-button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color de texto */
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .reusable-button:hover {
+    background-color: #45a049; /* Color de fondo al pasar el mouse */
+  }
+  
+  .reusable-button:disabled {
+    background-color: #ccc; /* Color de fondo cuando está deshabilitado */
+    cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+  }
+  

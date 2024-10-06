@@ -1,18 +1,12 @@
 import './App.css'
-import Home from './pages/home/Home'
-import LocationInput from './components/Prueba'
-import LocationSelector from './pages/maps/Mapa'
-import SpectralSignatureChart from './components/Camb'
+import Cordenadas from './pages/maps/cordenadas'
 
 function App() {
 
   return (
     <>
-      <Home/>
-      <LocationSelector/>
-      <SpectralSignatureChart/>
-
-    <LocationInput/>
+      {/* <Home/> */}
+      <Cordenadas/>
     </>
   )
 }

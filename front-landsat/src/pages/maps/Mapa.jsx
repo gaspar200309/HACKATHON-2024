@@ -1,10 +1,9 @@
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css'; // Importa los estilos de Leaflet
+// MapView.js
+import { MapContainer, TileLayer, Marker, LayersControl, useMapEvents } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css'; 
 import L from 'leaflet';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-
-// Corrección para que los íconos de Leaflet se muestren bien
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -12,7 +11,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
-const LocationSelector = ({ setLocation }) => {
+const MapView = ({ currentLocation, setLocation }) => {
   const [position, setPosition] = useState(null);
 
   const MapEvents = () => {
@@ -28,14 +27,35 @@ const LocationSelector = ({ setLocation }) => {
   };
 
   return (
-    <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: "400px", width: "100%" }} id="map">
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <MapEvents />
-    </MapContainer>
+    <div className="map-container">
+      <MapContainer center={currentLocation} zoom={13} style={{ height: "100%", width: "100%" }} id="map">
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer checked name="Mapa de OpenStreetMap">
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+          </LayersControl.BaseLayer>
+
+          <LayersControl.BaseLayer name="Mapa Satelital (Esri)">
+            <TileLayer
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              attribution='&copy; <a href="https://www.esri.com/">Esri</a> contributors'
+            />
+          </LayersControl.BaseLayer>
+
+          <LayersControl.Overlay name="Límites de los países (Esri)">
+            <TileLayer
+              url="https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
+              attribution='&copy; <a href="https://www.esri.com/">Esri</a> contributors'
+            />
+          </LayersControl.Overlay>
+        </LayersControl>
+
+        <MapEvents />
+      </MapContainer>
+    </div>
   );
 };
 
-export default LocationSelector;
+export default MapView;
