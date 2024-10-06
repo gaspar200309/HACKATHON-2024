@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import {
   LineChart,
   Line,
@@ -17,7 +19,8 @@ import {
   MapPin,
   ThermometerSun,
 } from "lucide-react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
+import { LocalizationProvider, StaticDatePicker } from "@mui/x-date-pickers";
 
 const Result = ({ selectedLocation }) => {
   const [landSatData, setLandSatData] = useState({
@@ -89,7 +92,10 @@ const Result = ({ selectedLocation }) => {
 
   return (
     <div>
-      <div className="grid-container" style={{ display: "flex", gap:"5rem", width:"100%" }}>
+      <div
+        className="grid-container"
+        style={{ display: "flex", gap: "5rem", width: "100%" }}
+      >
         {/* Información básica de ubicación */}
 
         <div className="card ">
@@ -155,8 +161,27 @@ const Result = ({ selectedLocation }) => {
             </LineChart>
           </div>
         </div>
+        <div>
+          <div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <StaticDatePicker
+                displayStaticWrapperAs="desktop"
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{
+                mt: 1,
+              }}
+            >
+              Añadir evento a Google Calendar
+            </Button>
+          </div>
+        </div>
       </div>
-      <div style={{ display: "flex", gap:"2rem" }}>
+      <div style={{ display: "flex", gap: "2rem" }}>
         {/* Configuración de notificaciones */}
         <div className="card">
           <div className="card-header">
@@ -208,15 +233,13 @@ const Result = ({ selectedLocation }) => {
 
         {/* Botón de descarga */}
         <Box>
-        <Button
-        startIcon={<Download className="icon-small" />}
-        onClick={downloadCSV}
-        variant="contained"
-        >
-            
-          Descargar datos (CSV)
-        </Button>
-        
+          <Button
+            startIcon={<Download className="icon-small" />}
+            onClick={downloadCSV}
+            variant="contained"
+          >
+            Descargar datos (CSV)
+          </Button>
         </Box>
       </div>
     </div>
