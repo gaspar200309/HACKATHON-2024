@@ -13,6 +13,8 @@ body {
   color: white;
   padding: 0;
   margin: 0;
+  background-image: url("/fondo.jpg");
+  background-repeat: repeat-y;
 }
 
 .layout-container {
@@ -40,10 +42,4 @@ h1 {
 #map {
   height: 100%; /* Para que el mapa ocupe el 100% del contenedor */
   border-radius: 8px; /* Bordes redondeados */
-}
-
-
-.App {
-  background-image: url("/fondo.jpg");
-  background-repeat: repeat-y;
 }
