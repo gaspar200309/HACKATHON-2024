@@ -1,0 +1,27 @@
+import LocationInput from "./components/Prueba";
+import LocationSelector from "./pages/maps/Mapa";
+import SpectralSignatureChart from "./components/Camb";
+import NavBar from "./components/NavBar";
+import Hero from "./pages/hero/Hero";
+import { Container, Toolbar } from "@mui/material";
+import Cordenadas from "./pages/maps/cordenadas";
+
+function App() {
+  return (
+    <>
+      <div className="App">
+        <Container maxWidth="xl">
+          <NavBar />
+          <Hero />
+          <Toolbar />
+          <LocationSelector />
+          <SpectralSignatureChart />
+          <LocationInput />
+        </Container>
+        <Cordenadas />
+      </div>
+    </>
+  );
+}
+
+export default App;

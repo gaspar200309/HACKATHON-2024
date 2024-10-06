@@ -15,6 +15,23 @@ body {
   margin: 0;
 }
 
+.App {
+  background-image: url("/fondo.jpg");
+  background-repeat: repeat-y;
+}
+/* styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
 .layout-container {
   display: flex;
   flex-direction: column;
@@ -26,7 +43,6 @@ body {
 h1 {
   margin-bottom: 20px;
 }
-
 
 /* MapView.css */
 .map-container {
@@ -40,10 +56,4 @@ h1 {
 #map {
   height: 100%; /* Para que el mapa ocupe el 100% del contenedor */
   border-radius: 8px; /* Bordes redondeados */
-}
-
-
-.App {
-  background-image: url("/fondo.jpg");
-  background-repeat: repeat-y;
 }

@@ -14,7 +14,6 @@ function NavBar() {
       >
         <Toolbar sx={{ justifyContent: "flex-end" }}>
           <Button color="inherit" component={Link} to="/">Home</Button>
-          <Button color="inherit" component={Link} to="/hero">Hero</Button>
           <Button color="inherit" component={Link} to="/location-selector">Location Selector</Button>
           <Button color="inherit" component={Link} to="/spectral-signature">Spectral Signature</Button>
           <Button color="inherit" component={Link} to="/location-input">Location Input</Button>
