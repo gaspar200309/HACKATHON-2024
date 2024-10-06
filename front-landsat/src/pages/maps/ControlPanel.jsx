@@ -1,13 +1,12 @@
-// ControlPanel.js
 import React, { useState } from 'react';
-import './ControlPanel.css'; // Asegúrate de crear este archivo para los estilos
+import './ControlPanel.css';
 
 const ControlPanel = ({ setLocation }) => {
   const [inputCoords, setInputCoords] = useState({ lat: '', lng: '' });
+  const [inputLocation, setInputLocation] = useState(''); // Para el nombre del lugar
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
-  const [position, setPosition] = useState(null); // Para mostrar coordenadas seleccionadas
+  const [position, setPosition] = useState(null);
 
-  // Manejar el cambio en los campos de coordenadas ingresadas manualmente
   const handleCoordsChange = (e) => {
     setInputCoords({
       ...inputCoords,
@@ -15,19 +14,39 @@ const ControlPanel = ({ setLocation }) => {
     });
   };
 
+  // Manejar el cambio en el campo de nombre de lugar
+  const handleLocationChange = (e) => {
+    setInputLocation(e.target.value);
+  };
+
   // Actualizar la posición del mapa según las coordenadas ingresadas manualmente
-// Actualizar el handleCoordsSubmit en ControlPanel
-const handleCoordsSubmit = () => {
+  const handleCoordsSubmit = () => {
     if (inputCoords.lat && inputCoords.lng) {
       const newCoords = {
         lat: parseFloat(inputCoords.lat),
         lng: parseFloat(inputCoords.lng),
       };
       setPosition(newCoords);
-      setLocation(newCoords); // Asegúrate de pasar las coordenadas correctas
+      setLocation(newCoords);
     }
   };
-  
+
+  // Buscar la ubicación mediante nombre de lugar
+  const handleLocationSubmit = async () => {
+    if (inputLocation) {
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${inputLocation}&format=json&limit=1`);
+      const data = await response.json();
+      if (data && data.length > 0) {
+        const { lat, lon } = data[0];
+        const newCoords = { lat: parseFloat(lat), lng: parseFloat(lon) };
+        setPosition(newCoords);
+        setLocation(newCoords); // Actualiza la ubicación en el mapa
+      } else {
+        alert('Ubicación no encontrada');
+      }
+    }
+  };
+
   // Manejar el cambio en el rango de fechas
   const handleDateChange = (e) => {
     setDateRange({
@@ -69,7 +88,18 @@ const handleCoordsSubmit = () => {
         <button onClick={handleCoordsSubmit}>Actualizar Ubicación</button>
       </div>
 
-      {/* Rango de fechas */}
+      {/* Buscar por nombre de lugar */}
+      <div>
+        <h4>Buscar Ubicación</h4>
+        <input
+          type="text"
+          placeholder="Nombre del lugar"
+          value={inputLocation}
+          onChange={handleLocationChange}
+        />
+        <button onClick={handleLocationSubmit}>Buscar</button>
+      </div>
+
       <div>
         <h4>Seleccionar Rango de Fechas</h4>
         <label>Fecha Inicio: </label>

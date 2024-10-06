@@ -1,5 +1,6 @@
-import { AppBar } from "@mui/material";
-import { Toolbar, Button } from "@mui/material";
+import { AppBar, Toolbar, Button } from "@mui/material";
+import { Link } from "react-router-dom";
+
 function NavBar() {
   return (
     <div>
@@ -12,9 +13,11 @@ function NavBar() {
         elevation={0}
       >
         <Toolbar sx={{ justifyContent: "flex-end" }}>
-          <Button color="inherit">Home</Button>
-          <Button color="inherit">About</Button>
-          <Button color="inherit">Contact</Button>
+          <Button color="inherit" component={Link} to="/">Home</Button>
+          <Button color="inherit" component={Link} to="/hero">Hero</Button>
+          <Button color="inherit" component={Link} to="/location-selector">Location Selector</Button>
+          <Button color="inherit" component={Link} to="/spectral-signature">Spectral Signature</Button>
+          <Button color="inherit" component={Link} to="/location-input">Location Input</Button>
         </Toolbar>
       </AppBar>
 
