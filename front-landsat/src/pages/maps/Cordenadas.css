@@ -5,6 +5,7 @@
     justify-content: space-between; /* Espacio entre panel y mapa */
     align-items: flex-start; /* Alinea el contenido en la parte superior */
     width: 100%;
+    position: relative;
   }
   
   .control-panel-container {
