@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ControlPanel from './ControlPanel';
 import MapView from './Mapa';
 import './Cordenadas.css'; // Asegúrate de crear este archivo para los estilos
+import LandsatGrid from './LandsatGrid';
 
 const Cordenadas = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -27,6 +28,8 @@ const Cordenadas = () => {
 
   return (
     <div className="layout-container">
+      <MapView currentLocation={currentLocation} setLocation={setSelectedLocation} />
+
       <div className="control-panel-container">
         <h1>Selecciona una ubicación en el mapa</h1>
         {selectedLocation && (
@@ -34,9 +37,9 @@ const Cordenadas = () => {
             Coordenadas seleccionadas: Latitud: {selectedLocation.lat}, Longitud: {selectedLocation.lng}
           </p>
         )}
+      <LandsatGrid/>  
         <ControlPanel setLocation={setSelectedLocation} />
       </div>
-      <MapView currentLocation={currentLocation} setLocation={setSelectedLocation} />
     </div>
   );
 };
