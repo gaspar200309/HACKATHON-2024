@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from app.services.main_service import MainService
+from app.services.landshat import get_landsat_acquisition
 import requests
 import itertools  
 
@@ -77,3 +78,15 @@ def nuevo():
             return jsonify({'error': str(e)}), 500
 
     return jsonify({'error': 'La solicitud debe tener datos JSON'}), 400
+
+@main_bp.route('/landsat-acquisition', methods=['GET'])
+def landsat_acquisition():
+    lat = request.args.get('lat', type=float)
+    lon = request.args.get('lon', type=float)
+    
+    if lat is None or lon is None:
+        return jsonify({"error": "Por favor proporciona latitud y longitud"}), 400
+
+    acquisitions = get_landsat_acquisition(lat, lon)
+
+    return jsonify(acquisitions)
