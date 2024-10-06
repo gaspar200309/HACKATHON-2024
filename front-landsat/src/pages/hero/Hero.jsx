@@ -32,17 +32,44 @@ function Hero() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            gap: 5,
+            gap: 2,
           }}
         >
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: "clamp(2rem, 10vw, 5rem)",
+          <Box>
+            <svg
+              width="234"
+              height="2"
+              viewBox="0 0 234 2"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 1L113.913 1L234 1"
+                stroke="url(#paint0_linear_15_14)"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_15_14"
+                  x1="2.97532e-05"
+                  y1="0.500297"
+                  x2="234"
+                  y2="0.500296"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="white" stopOpacity="0" />
+                  <stop offset="0.503125" stopColor="white" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </Box>
+          <img
+            src="/titulo.svg"
+            alt="Descripción de la imagen"
+            style={{
+              height: "clamp(150px, 10vw, 200px)",
             }}
-          >
-            SUNLIT DREAMS
-          </Typography>
+          />
           <Typography
             variant="h4"
             sx={{
@@ -73,6 +100,7 @@ function Hero() {
               "&:hover": {
                 backgroundColor: "#D9D9D9",
               },
+              mt: 5,
             }}
           >
             Iniciar
