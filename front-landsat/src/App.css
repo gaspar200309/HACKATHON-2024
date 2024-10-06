@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+body {
+  background-color: linear-gradient(45deg, #f3f3f3, #d32020);
+  color: white;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -39,4 +44,9 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.App {
+  background-image: url("/fondo.jpg");
+  background-repeat: repeat-y;
 }
