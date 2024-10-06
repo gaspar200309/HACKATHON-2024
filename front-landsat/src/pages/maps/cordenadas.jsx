@@ -27,21 +27,29 @@ const Cordenadas = () => {
 
   return (
     <div className="layout-container">
+   
+      <div style={{display:'flex', width:'100%', }}>
+    
+      <div className="control-panel-container" style={{width:'100%'}} >
+        <ControlPanel setLocation={setSelectedLocation} />
+      </div>
+     
+      <div  style={{width:'80%', height:'100%', display:'flex'}}>
       <MapView 
         setSelectedLocation={setSelectedLocation}
         currentLocation={currentLocation}
       />
-      
-      <div className="control-panel-container">
-        <ControlPanel setLocation={setSelectedLocation} />
       </div>
-      
+      </div>
       {selectedLocation && (
         <>
           <LandsatGrid location={selectedLocation} />
           <Result selectedLocation={selectedLocation} />
         </>
       )}
+      <div>
+        
+      </div>
     </div>
   );
 };
