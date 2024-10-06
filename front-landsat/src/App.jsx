@@ -1,29 +1,14 @@
 import "./App.css";
-import Home from "./pages/home/Home";
-import LocationInput from "./components/Prueba";
-import LocationSelector from "./pages/maps/Mapa";
-import SpectralSignatureChart from "./components/Camb";
-import NavBar from "./components/NavBar";
-import Hero from "./pages/hero/Hero";
-import { Container, Toolbar } from "@mui/material";
-import Cordenadas from './pages/maps/cordenadas'
-
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import Map from "./Map";
 function App() {
   return (
     <>
-      <div className="App">
-        <Container maxWidth="xl">
-          <NavBar />
-          <Hero />
-          <Toolbar />
-          <Home />
-          <LocationSelector />
-          <SpectralSignatureChart />
-          <LocationInput />
-        </Container>
-      </div>
-      {/* <Home/> */}
-      <Cordenadas/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/inicio" element={<Map />} />
+      </Routes>
     </>
   );
 }
